@@ -121,6 +121,79 @@
 #influenza-admin-mock .admin-segment button { min-height: 34px; border: 0; background: transparent; }
 #influenza-admin-mock .admin-segment button[aria-pressed="true"] { color: light-dark(#ffffff, #10221a); background: var(--admin-green); }
 #influenza-admin-mock .admin-range-label { margin: 14px 0 8px; color: var(--admin-green-dark); font-size: 13px; font-weight: 500; }
+#influenza-admin-mock .admin-calendar-shell {
+  margin-bottom: 18px;
+  border: 1px solid var(--admin-line);
+  border-radius: 9px;
+  background: var(--admin-surface-strong);
+  overflow-x: auto;
+}
+#influenza-admin-mock .admin-calendar {
+  display: grid;
+  grid-template-columns: 68px minmax(240px, 1fr);
+  min-width: 420px;
+}
+#influenza-admin-mock[data-range-view="week"] .admin-calendar {
+  grid-template-columns: 68px repeat(7, minmax(118px, 1fr));
+  min-width: 920px;
+}
+#influenza-admin-mock .admin-cal-day[data-day]:not([data-day="0"]),
+#influenza-admin-mock .admin-cal-cell[data-day]:not([data-day="0"]) { display: none; }
+#influenza-admin-mock[data-range-view="week"] .admin-cal-day[data-day],
+#influenza-admin-mock[data-range-view="week"] .admin-cal-cell[data-day] { display: block; }
+#influenza-admin-mock .admin-cal-corner,
+#influenza-admin-mock .admin-cal-day {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-height: 52px;
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--admin-line);
+  background: var(--admin-bg);
+  text-align: center;
+}
+#influenza-admin-mock .admin-cal-corner { left: 0; z-index: 3; display: grid; place-items: center; color: var(--admin-muted); font-size: 11px; }
+#influenza-admin-mock .admin-cal-day { border-left: 1px solid var(--admin-line); font-size: 12px; font-weight: 600; }
+#influenza-admin-mock .admin-cal-day span { display: block; margin-top: 2px; color: var(--admin-muted); font-size: 11px; font-weight: 400; }
+#influenza-admin-mock .admin-cal-time {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  min-height: 82px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--admin-line);
+  background: var(--admin-bg);
+  color: var(--admin-muted);
+  font-size: 11px;
+  text-align: right;
+}
+#influenza-admin-mock .admin-cal-cell {
+  min-height: 82px;
+  padding: 5px;
+  border-left: 1px solid var(--admin-line);
+  border-bottom: 1px solid var(--admin-line);
+  background: linear-gradient(to bottom, transparent 49%, color-mix(in srgb, var(--admin-line) 42%, transparent) 50%, transparent 51%);
+}
+#influenza-admin-mock .admin-cal-event,
+#influenza-admin-mock .admin-cal-empty {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  text-align: left;
+  line-height: 1.35;
+}
+#influenza-admin-mock .admin-cal-event { color: var(--admin-green-dark); border-color: color-mix(in srgb, var(--admin-green) 32%, var(--admin-line)); background: var(--admin-green-soft); }
+#influenza-admin-mock .admin-cal-event[data-state="cancelled"] { color: var(--admin-red); border-color: color-mix(in srgb, var(--admin-red) 30%, var(--admin-line)); background: var(--admin-red-soft); text-decoration: line-through; }
+#influenza-admin-mock .admin-cal-event strong,
+#influenza-admin-mock .admin-cal-event span { display: block; }
+#influenza-admin-mock .admin-cal-event strong { font-size: 12px; }
+#influenza-admin-mock .admin-cal-event span { margin-top: 2px; font-size: 10px; opacity: .78; }
+#influenza-admin-mock .admin-cal-empty { color: var(--admin-muted); border-style: dashed; border-color: var(--admin-line); background: transparent; text-align: center; }
+#influenza-admin-mock .admin-list-title { margin: 0 0 8px; color: var(--admin-muted); font-size: 12px; font-weight: 500; }
+#influenza-admin-mock .admin-row-focus { outline: 2px solid var(--admin-green); outline-offset: -2px; }
 #influenza-admin-mock .admin-table-wrap { overflow-x: auto; }
 #influenza-admin-mock table { width: 100%; min-width: 720px; border-collapse: collapse; }
 #influenza-admin-mock th,
@@ -186,7 +259,7 @@
 }
 </style>
 
-<div id="influenza-admin-mock">
+<div id="influenza-admin-mock" data-range-view="day">
   <div class="admin-shell">
     <header class="admin-header">
       <div class="admin-brand">
@@ -259,32 +332,90 @@
               </div>
             </div>
             <div class="admin-range-label" id="admin-range-label">2026年10月5日（月）の予約</div>
+            <div class="admin-calendar-shell" aria-label="予約カレンダー">
+              <div class="admin-calendar" role="grid">
+                <div class="admin-cal-corner">時間</div>
+                <div class="admin-cal-day" data-day="0">月<span>10/5</span></div>
+                <div class="admin-cal-day" data-day="1">火<span>10/6</span></div>
+                <div class="admin-cal-day" data-day="2">水<span>10/7</span></div>
+                <div class="admin-cal-day" data-day="3">木<span>10/8</span></div>
+                <div class="admin-cal-day" data-day="4">金<span>10/9</span></div>
+                <div class="admin-cal-day" data-day="5">土<span>10/10</span></div>
+                <div class="admin-cal-day" data-day="6">日<span>10/11</span></div>
+
+                <div class="admin-cal-time">09:00</div>
+                <div class="admin-cal-cell" data-day="0"><button class="admin-cal-event" type="button" data-reserve-id="R-20261005-0900-01"><strong>09:00 テスト 太郎</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="1"><button class="admin-cal-empty" type="button" data-book-date="2026-10-06" data-book-time="09:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="2"><button class="admin-cal-event" type="button"><strong>09:00 見本 五郎</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="3"><button class="admin-cal-empty" type="button" data-book-date="2026-10-08" data-book-time="09:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="4"><button class="admin-cal-event" type="button"><strong>09:00 確認 六郎</strong><span>予約済み・窓口</span></button></div>
+                <div class="admin-cal-cell" data-day="5"><button class="admin-cal-empty" type="button" data-book-date="2026-10-10" data-book-time="09:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="6"><button class="admin-cal-empty" type="button" data-book-date="2026-10-11" data-book-time="09:00">＋ 空き</button></div>
+
+                <div class="admin-cal-time">09:30</div>
+                <div class="admin-cal-cell" data-day="0"><button class="admin-cal-event" type="button" data-reserve-id="R-20261005-0930-01"><strong>09:30 見本 花子</strong><span>予約済み・管理画面</span></button></div>
+                <div class="admin-cal-cell" data-day="1"><button class="admin-cal-event" type="button"><strong>09:30 予約 七子</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="2"><button class="admin-cal-empty" type="button" data-book-date="2026-10-07" data-book-time="09:30">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="3"><button class="admin-cal-event" data-state="cancelled" type="button"><strong>09:30 取消 八郎</strong><span>キャンセル済み</span></button></div>
+                <div class="admin-cal-cell" data-day="4"><button class="admin-cal-empty" type="button" data-book-date="2026-10-09" data-book-time="09:30">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="5"><button class="admin-cal-empty" type="button" data-book-date="2026-10-10" data-book-time="09:30">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="6"><button class="admin-cal-event" type="button"><strong>09:30 週末 九子</strong><span>予約済み・WEB</span></button></div>
+
+                <div class="admin-cal-time">10:00</div>
+                <div class="admin-cal-cell" data-day="0"><button class="admin-cal-event" data-state="cancelled" type="button" data-reserve-id="R-20261005-1000-01"><strong>10:00 確認 次郎</strong><span>キャンセル済み</span></button></div>
+                <div class="admin-cal-cell" data-day="1"><button class="admin-cal-empty" type="button" data-book-date="2026-10-06" data-book-time="10:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="2"><button class="admin-cal-event" type="button"><strong>10:00 模型 十郎</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="3"><button class="admin-cal-empty" type="button" data-book-date="2026-10-08" data-book-time="10:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="4"><button class="admin-cal-empty" type="button" data-book-date="2026-10-09" data-book-time="10:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="5"><button class="admin-cal-event" type="button"><strong>10:00 土曜 十一</strong><span>予約済み・窓口</span></button></div>
+                <div class="admin-cal-cell" data-day="6"><button class="admin-cal-empty" type="button" data-book-date="2026-10-11" data-book-time="10:00">＋ 空き</button></div>
+
+                <div class="admin-cal-time">10:30</div>
+                <div class="admin-cal-cell" data-day="0"><button class="admin-cal-event" type="button" data-reserve-id="R-20261005-1030-01"><strong>10:30 予約 三郎</strong><span>予約済み・窓口</span></button></div>
+                <div class="admin-cal-cell" data-day="1"><button class="admin-cal-empty" type="button" data-book-date="2026-10-06" data-book-time="10:30">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="2"><button class="admin-cal-empty" type="button" data-book-date="2026-10-07" data-book-time="10:30">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="3"><button class="admin-cal-event" type="button"><strong>10:30 見本 十二</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="4"><button class="admin-cal-event" type="button"><strong>10:30 確認 十三</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="5"><button class="admin-cal-empty" type="button" data-book-date="2026-10-10" data-book-time="10:30">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="6"><button class="admin-cal-empty" type="button" data-book-date="2026-10-11" data-book-time="10:30">＋ 空き</button></div>
+
+                <div class="admin-cal-time">14:00</div>
+                <div class="admin-cal-cell" data-day="0"><button class="admin-cal-empty" type="button" data-book-date="2026-10-05" data-book-time="14:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="1"><button class="admin-cal-event" type="button"><strong>14:00 午後 十四</strong><span>予約済み・WEB</span></button></div>
+                <div class="admin-cal-cell" data-day="2"><button class="admin-cal-empty" type="button" data-book-date="2026-10-07" data-book-time="14:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="3"><button class="admin-cal-empty" type="button" data-book-date="2026-10-08" data-book-time="14:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="4"><button class="admin-cal-event" type="button"><strong>14:00 午後 十五</strong><span>予約済み・管理画面</span></button></div>
+                <div class="admin-cal-cell" data-day="5"><button class="admin-cal-empty" type="button" data-book-date="2026-10-10" data-book-time="14:00">＋ 空き</button></div>
+                <div class="admin-cal-cell" data-day="6"><button class="admin-cal-empty" type="button" data-book-date="2026-10-11" data-book-time="14:00">＋ 空き</button></div>
+              </div>
+            </div>
+            <h3 class="admin-list-title">予約一覧</h3>
             <div class="admin-table-wrap">
               <table aria-label="予約一覧">
                 <thead><tr><th>日時</th><th>患者</th><th>予約ID</th><th>登録元</th><th>状態</th><th>操作</th></tr></thead>
                 <tbody id="admin-reservation-rows">
-                  <tr data-status="予約済み">
+                  <tr data-status="予約済み" data-reservation-id="R-20261005-0900-01">
                     <td><strong>09:00</strong><div class="admin-subline">10月5日（月）</div></td>
                     <td><span class="admin-patient">テスト 太郎</span><div class="admin-subline">090-****-1201</div></td>
                     <td>R-20261005-0900-01</td><td>WEB</td>
                     <td><span class="admin-status-badge" data-state="reserved">● 予約済み</span></td>
                     <td><button class="admin-danger" type="button" data-cancel-name="テスト 太郎" data-cancel-id="R-20261005-0900-01" data-cancel-time="10月5日（月）09:00">キャンセル</button></td>
                   </tr>
-                  <tr data-status="予約済み">
+                  <tr data-status="予約済み" data-reservation-id="R-20261005-0930-01">
                     <td><strong>09:30</strong><div class="admin-subline">10月5日（月）</div></td>
                     <td><span class="admin-patient">見本 花子</span><div class="admin-subline">080-****-8870</div></td>
                     <td>R-20261005-0930-01</td><td>管理画面</td>
                     <td><span class="admin-status-badge" data-state="reserved">● 予約済み</span></td>
                     <td><button class="admin-danger" type="button" data-cancel-name="見本 花子" data-cancel-id="R-20261005-0930-01" data-cancel-time="10月5日（月）09:30">キャンセル</button></td>
                   </tr>
-                  <tr data-status="キャンセル済み">
+                  <tr data-status="キャンセル済み" data-reservation-id="R-20261005-1000-01">
                     <td><strong>10:00</strong><div class="admin-subline">10月5日（月）</div></td>
                     <td><span class="admin-patient">確認 次郎</span><div class="admin-subline">070-****-4432</div></td>
                     <td>R-20261005-1000-01</td><td>WEB</td>
                     <td><span class="admin-status-badge" data-state="cancelled">● キャンセル済み</span></td>
                     <td><button class="admin-danger" type="button" disabled>処理済み</button></td>
                   </tr>
-                  <tr data-status="予約済み">
+                  <tr data-status="予約済み" data-reservation-id="R-20261005-1030-01">
                     <td><strong>10:30</strong><div class="admin-subline">10月5日（月）</div></td>
                     <td><span class="admin-patient">予約 三郎</span><div class="admin-subline">090-****-9914</div></td>
                     <td>R-20261005-1030-01</td><td>窓口</td>
@@ -360,9 +491,24 @@
 
   rangeButtons.forEach(button => button.addEventListener('click', () => {
     rangeButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    root.dataset.rangeView = button.dataset.range;
     rangeLabel.textContent = button.dataset.range === 'week'
       ? '2026年10月5日（月）〜10月11日（日）の予約'
       : '2026年10月5日（月）の予約';
+  }));
+
+  root.querySelectorAll('[data-reserve-id]').forEach(button => button.addEventListener('click', () => {
+    const row = root.querySelector(`[data-reservation-id="${button.dataset.reserveId}"]`);
+    if (!row) return;
+    rows.forEach(item => item.classList.remove('admin-row-focus'));
+    row.classList.add('admin-row-focus');
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }));
+
+  root.querySelectorAll('[data-book-date]').forEach(button => button.addEventListener('click', () => {
+    root.querySelector('#admin-book-date').value = button.dataset.bookDate;
+    root.querySelector('#admin-book-time').value = button.dataset.bookTime;
+    root.querySelector('#admin-manual-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }));
 
   filter.addEventListener('change', () => {
