@@ -93,6 +93,29 @@
 }
 #influenza-admin-mock .admin-metric span { display: block; color: var(--admin-muted); font-size: 12px; }
 #influenza-admin-mock .admin-metric strong { display: block; margin-top: 4px; font-size: 26px; font-weight: 500; }
+#influenza-admin-mock .admin-metric-link {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+#influenza-admin-mock .admin-metric-link::after {
+  content: "↗";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  color: var(--admin-muted);
+  font-size: 15px;
+}
+#influenza-admin-mock .admin-metric-link:hover {
+  border-color: var(--admin-green);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--admin-green) 13%, transparent);
+  transform: translateY(-1px);
+}
+#influenza-admin-mock .admin-metric-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--admin-green) 35%, transparent);
+  outline-offset: 2px;
+}
 #influenza-admin-mock .admin-workspace { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(280px, .75fr); gap: 18px; align-items: start; }
 #influenza-admin-mock .admin-panel {
   border: 1px solid var(--admin-line);
@@ -303,7 +326,7 @@
 
       <section class="admin-metrics" aria-label="予約状況の集計">
         <div class="admin-metric"><span>本日の予約</span><strong>12</strong><span>うち新規 3件</span></div>
-        <div class="admin-metric"><span>今週の残り枠</span><strong>28</strong><span>全84枠中</span></div>
+        <a class="admin-metric admin-metric-link" href="https://mail.google.com/mail/u/0/#label/%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" target="_blank" rel="noopener noreferrer" aria-label="問い合わせメールを開く（未読0件）"><span>問い合わせ</span><strong>未読 0件</strong><span>メールを開く</span></a>
         <div class="admin-metric"><span>今週のキャンセル</span><strong>2</strong><span>直近24時間 1件</span></div>
       </section>
 
