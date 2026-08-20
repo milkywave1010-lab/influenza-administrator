@@ -116,6 +116,9 @@
   outline: 3px solid color-mix(in srgb, var(--admin-green) 35%, transparent);
   outline-offset: 2px;
 }
+#influenza-admin-mock .admin-metric-link:not([data-unread-count="0"]) .admin-unread-count {
+  color: var(--admin-red);
+}
 #influenza-admin-mock .admin-workspace { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(280px, .75fr); gap: 18px; align-items: start; }
 #influenza-admin-mock .admin-panel {
   border: 1px solid var(--admin-line);
@@ -325,8 +328,8 @@
       </section>
 
       <section class="admin-metrics" aria-label="予約状況の集計">
+        <a class="admin-metric admin-metric-link" data-unread-count="0" href="https://mail.google.com/mail/u/0/#label/%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" target="_blank" rel="noopener noreferrer" aria-label="問い合わせメールを開く（未読0件）"><span>問い合わせ</span><strong class="admin-unread-count">未読 0件</strong><span>メールを開く</span></a>
         <div class="admin-metric"><span>本日の予約</span><strong>12</strong><span>うち新規 3件</span></div>
-        <a class="admin-metric admin-metric-link" href="https://mail.google.com/mail/u/0/#label/%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" target="_blank" rel="noopener noreferrer" aria-label="問い合わせメールを開く（未読0件）"><span>問い合わせ</span><strong>未読 0件</strong><span>メールを開く</span></a>
         <div class="admin-metric"><span>今週のキャンセル</span><strong>2</strong><span>直近24時間 1件</span></div>
       </section>
 
